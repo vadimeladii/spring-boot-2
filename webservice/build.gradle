@@ -1,0 +1,9 @@
+version '0.0.1-SNAPSHOT'
+group 'md.springboot'
+
+jar {
+    archiveName 'spring-boot2.jar'
+}
+
+dependencies {
+}
