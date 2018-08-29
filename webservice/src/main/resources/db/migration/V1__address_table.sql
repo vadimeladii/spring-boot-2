@@ -1,0 +1,8 @@
+CREATE TABLE address (
+  id SERIAL,
+  street VARCHAR NOT NULL,
+  city VARCHAR NOT NULL,
+  state VARCHAR NOT NULL,
+  zipcode VARCHAR NOT NULL,
+  PRIMARY KEY(id)
+);

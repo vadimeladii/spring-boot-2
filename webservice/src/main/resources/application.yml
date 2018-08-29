@@ -1,0 +1,19 @@
+# Flyway Sql Migration
+spring:
+  flyway:
+    url: jdbc:postgresql://localhost:5432/spring_boot2
+    user: postgres
+    password: postgres
+
+  # Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring_boot2
+    username: postgres
+    password: postgres
+  # The SQL dialect makes Hibernate generate better SQL for the chosen database
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
