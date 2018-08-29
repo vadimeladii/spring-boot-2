@@ -6,4 +6,6 @@ jar {
 }
 
 dependencies {
+    compile project (":business")
+    compile project (":common")
 }

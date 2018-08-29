@@ -1,7 +1,6 @@
 rootProject.name = 'spring-boot2'
-//include 'common'
-//include 'repository'
-//include 'service'
-//include 'webservice'
 include 'webservice'
+include 'common'
+include 'repository'
+include 'business'
 
