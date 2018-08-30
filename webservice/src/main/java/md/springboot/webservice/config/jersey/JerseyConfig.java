@@ -1,5 +1,6 @@
 package md.springboot.webservice.config.jersey;
 
+import md.springboot.error.config.*;
 import md.springboot.webservice.AddressController;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
@@ -21,5 +22,10 @@ public class JerseyConfig extends ResourceConfig {
 
     private void registerEndpoints() {
         register(AddressController.class);
+        register(EntityNotFoundExceptionMapper.class);
+        register(WrongUrlIdExceptionMapper.class);
+        register(DuplicateEntityExceptionMapper.class);
+        register(IllegalArgumentExceptionMapper.class);
+        register(ValueExistsExceptionMapper.class);
     }
 }

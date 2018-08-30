@@ -41,4 +41,11 @@ public class AddressControllerImpl implements AddressController {
                 .entity(business.create(converter.reverse().convert(view)))
                 .build();
     }
+
+    @Override
+    public Response edit(Long id, AddressView view) {
+        return Response.ok()
+                .entity(business.edit(id, converter.reverse().convert(view)))
+                .build();
+    }
 }

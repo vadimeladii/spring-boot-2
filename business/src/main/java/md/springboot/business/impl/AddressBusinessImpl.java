@@ -4,12 +4,18 @@ import lombok.RequiredArgsConstructor;
 import md.springboot.business.AddressBusiness;
 import md.springboot.business.converter.AddressConverter;
 import md.springboot.business.dto.Address;
+import md.springboot.constants.FieldName;
+import md.springboot.error.EntityNotFoundException;
+import md.springboot.error.ValueExistsException;
+import md.springboot.error.WrongUrlIdException;
 import md.springboot.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static md.springboot.expression.ExpressionAsserts.verify;
 
 /**
  * Created by veladii on 29.08.2018
@@ -33,6 +39,14 @@ public class AddressBusinessImpl implements AddressBusiness {
 
     @Override
     public Address create(Address dto) {
+        verify(dto.getId() != null, () -> new ValueExistsException(Address.class, FieldName.ID));
+        return converter.convert(repository.save(converter.reverse().convert(dto)));
+    }
+
+    @Override
+    public Address edit(Long id, Address dto) {
+        verify(!dto.getId().equals(id), () -> new WrongUrlIdException(Address.class, dto.getId(), id));
+        verify(!repository.existsById(id), () -> new EntityNotFoundException(Address.class, id));
         return converter.convert(repository.save(converter.reverse().convert(dto)));
     }
 }

@@ -27,4 +27,10 @@ public interface AddressController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     Response create(AddressView view);
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    Response edit(@PathParam("id") Long id, AddressView view);
 }

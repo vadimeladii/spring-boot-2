@@ -14,4 +14,6 @@ public interface AddressBusiness {
     Optional<Address> retrieveById(Long id);
 
     Address create(Address dto);
+
+    Address edit(Long id, Address dto);
 }
