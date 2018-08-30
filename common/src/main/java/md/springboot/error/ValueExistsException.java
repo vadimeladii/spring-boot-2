@@ -1,6 +1,6 @@
 package md.springboot.error;
 
-import md.springboot.constants.FieldName;
+import md.springboot.util.FieldName;
 
 /**
  * Created by veladii on 30.08.2018

@@ -1,6 +1,7 @@
 package md.springboot.webservice;
 
 import io.swagger.annotations.Api;
+import md.springboot.util.OffsetLimitHelper;
 import md.springboot.webservice.view.AddressView;
 
 import javax.ws.rs.*;
@@ -17,6 +18,12 @@ public interface AddressController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     Response retrieve();
+
+    @GET
+    @Path("/pagination")
+    @Produces(MediaType.APPLICATION_JSON)
+    Response retrievePagination(@QueryParam("page") @DefaultValue(OffsetLimitHelper.PAGE) Integer page,
+                                @QueryParam("size") @DefaultValue(OffsetLimitHelper.SIZE) Integer size);
 
     @GET
     @Path("/{id}")

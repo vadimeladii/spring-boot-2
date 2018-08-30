@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import md.springboot.business.AddressBusiness;
 import md.springboot.business.converter.AddressConverter;
 import md.springboot.business.dto.Address;
-import md.springboot.constants.FieldName;
+import md.springboot.util.FieldName;
 import md.springboot.error.EntityNotFoundException;
 import md.springboot.error.ValueExistsException;
 import md.springboot.error.WrongUrlIdException;
 import md.springboot.repository.AddressRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,11 @@ public class AddressBusinessImpl implements AddressBusiness {
     @Override
     public List<Address> retrieve() {
         return repository.findAll().stream().map(converter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Address> retrievePagination(Integer page, Integer size) {
+        return repository.findAll(PageRequest.of(page, size)).map(converter::convert);
     }
 
     @Override

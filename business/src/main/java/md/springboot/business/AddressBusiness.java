@@ -1,6 +1,7 @@
 package md.springboot.business;
 
 import md.springboot.business.dto.Address;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,8 @@ import java.util.Optional;
  */
 public interface AddressBusiness {
     List<Address> retrieve();
+
+    Page<Address> retrievePagination(Integer page, Integer size);
 
     Optional<Address> retrieveById(Long id);
 

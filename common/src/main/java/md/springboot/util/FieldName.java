@@ -1,4 +1,4 @@
-package md.springboot.constants;
+package md.springboot.util;
 
 /**
  * Created by veladii on 30.08.2018

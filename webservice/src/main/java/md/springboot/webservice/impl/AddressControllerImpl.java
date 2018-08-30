@@ -29,6 +29,13 @@ public class AddressControllerImpl implements AddressController {
     }
 
     @Override
+    public Response retrievePagination(Integer page, Integer size) {
+        return Response.ok()
+                .entity(business.retrievePagination(page, size).map(converter::convert))
+                .build();
+    }
+
+    @Override
     public Response retrieveById(Long id) {
         return Response.ok()
                 .entity(business.retrieveById(id).map(converter::convert))
