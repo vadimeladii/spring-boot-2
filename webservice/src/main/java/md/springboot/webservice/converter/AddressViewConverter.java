@@ -1,7 +1,6 @@
 package md.springboot.webservice.converter;
 
 import com.google.common.base.Converter;
-import lombok.RequiredArgsConstructor;
 import md.springboot.business.dto.Address;
 import md.springboot.webservice.view.AddressView;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@RequiredArgsConstructor
 public class AddressViewConverter extends Converter<Address, AddressView> {
 
     @Override
