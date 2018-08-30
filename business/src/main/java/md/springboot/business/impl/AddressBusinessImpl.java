@@ -30,4 +30,9 @@ public class AddressBusinessImpl implements AddressBusiness {
     public Optional<Address> retrieveById(Long id) {
         return repository.findById(id).map(converter::convert);
     }
+
+    @Override
+    public Address create(Address dto) {
+        return converter.convert(repository.save(converter.reverse().convert(dto)));
+    }
 }

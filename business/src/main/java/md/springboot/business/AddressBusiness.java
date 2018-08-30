@@ -12,4 +12,6 @@ public interface AddressBusiness {
     List<Address> retrieve();
 
     Optional<Address> retrieveById(Long id);
+
+    Address create(Address dto);
 }
