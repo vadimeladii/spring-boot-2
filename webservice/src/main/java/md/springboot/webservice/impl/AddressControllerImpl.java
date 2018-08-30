@@ -26,4 +26,11 @@ public class AddressControllerImpl implements AddressController {
                 .map(converter::convert)
                 .collect(Collectors.toList())).build();
     }
+
+    @Override
+    public Response retrieveById(Long id) {
+        return Response.ok()
+                .entity(business.retrieveById(id).map(converter::convert))
+                .build();
+    }
 }

@@ -8,6 +8,7 @@ import md.springboot.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -23,5 +24,10 @@ public class AddressBusinessImpl implements AddressBusiness {
     @Override
     public List<Address> retrieve() {
         return repository.findAll().stream().map(converter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Address> retrieveById(Long id) {
+        return repository.findById(id).map(converter::convert);
     }
 }
