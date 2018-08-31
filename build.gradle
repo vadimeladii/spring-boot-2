@@ -25,6 +25,8 @@ allprojects {
         mainClassName = 'md.springboot.webservice.config.core.SpringBoot2Application'
     }
 
+    jar {enabled = true}
+
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 }
