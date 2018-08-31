@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 /**
  * Created by veladii on 29.08.2018
  */
-
 @Component
 public class AddressViewConverter extends Converter<Address, AddressView> {
 

@@ -33,6 +33,7 @@ subprojects {
         compile('org.springframework.boot:spring-boot-starter-data-jpa')
         compile('org.springframework.boot:spring-boot-starter-web')
         compile('org.springframework.boot:spring-boot-starter-jersey')
+        compile('org.springframework.boot:spring-boot-starter-security')
 
 //      Utility
         compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
@@ -41,6 +42,9 @@ subprojects {
 //      Database
         compile('org.flywaydb:flyway-core')
         runtime('org.postgresql:postgresql')
+
+//      JWT
+        compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 
 //      Test
         testCompile('org.springframework.boot:spring-boot-starter-test')
