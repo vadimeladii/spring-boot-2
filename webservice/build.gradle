@@ -6,4 +6,10 @@ jar {
 }
 
 dependencies {
+    compile project (":business")
+    compile project (":common")
+
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+    compile group: 'io.swagger', name: 'swagger-jersey2-jaxrs', version: '1.5.16'
 }

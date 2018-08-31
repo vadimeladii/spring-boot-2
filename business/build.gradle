@@ -1,0 +1,7 @@
+group 'md.springboot'
+version '0.0.1-SNAPSHOT'
+
+dependencies {
+    compile project(":repository")
+    compile project(":common")
+}
