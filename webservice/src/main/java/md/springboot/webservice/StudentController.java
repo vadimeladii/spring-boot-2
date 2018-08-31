@@ -1,11 +1,9 @@
 package md.springboot.webservice;
 
 import io.swagger.annotations.Api;
+import md.springboot.webservice.view.StudentView;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,4 +23,8 @@ public interface StudentController {
     @Produces(MediaType.APPLICATION_JSON)
     Response retrieveById(@PathParam("id") Long id);
 
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    Response create(StudentView view);
 }

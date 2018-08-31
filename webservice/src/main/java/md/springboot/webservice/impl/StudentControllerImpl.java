@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import md.springboot.business.StudentBusiness;
 import md.springboot.webservice.StudentController;
 import md.springboot.webservice.converter.StudentViewConverter;
+import md.springboot.webservice.view.StudentView;
 import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.core.Response;
@@ -31,6 +32,13 @@ public class StudentControllerImpl implements StudentController {
     public Response retrieveById(Long id) {
         return Response.ok()
                 .entity(business.retrieveById(id).map(converter::convert))
+                .build();
+    }
+
+    @Override
+    public Response create(StudentView view) {
+        return Response.ok()
+                .entity(business.create(converter.reverse().convert(view)))
                 .build();
     }
 }

@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import md.springboot.business.StudentBusiness;
 import md.springboot.business.converter.StudentConverter;
 import md.springboot.business.dto.Student;
+import md.springboot.error.ValueExistsException;
 import md.springboot.repository.StudentRepository;
+import md.springboot.util.FieldName;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static md.springboot.expression.ExpressionAsserts.verify;
 
 /**
  * Created by veladii on 30.08.2018
@@ -29,5 +33,11 @@ public class StudentBusinessImpl implements StudentBusiness {
     @Override
     public Optional<Student> retrieveById(Long id) {
         return repository.findById(id).map(converter::convert);
+    }
+
+    @Override
+    public Student create(Student dto) {
+        verify(dto.getId() != null, () -> new ValueExistsException(Student.class, FieldName.ID));
+        return converter.convert(repository.save(converter.reverse().convert(dto)));
     }
 }
