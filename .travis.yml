@@ -1,0 +1,37 @@
+sudo:
+  required
+
+services:
+  - docker
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+install: gradle -p webservice assemble
+
+os:
+  - linux
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
+
+branches:
+  only:
+    - master
+
+after_success:
+
+   #LOGIN
+  - docker login -u $D_USER -p $D_PASS
+
+   #TAG
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+
+   #DATAWAREHOUSE
+  - export SPRINGBOOT=vadimeladii7/springboot2
+  - docker build -t $SPRINGBOOT:$COMMIT ./webservice
+  - docker tag $SPRINGBOOT:$COMMIT $SPRINGBOOT:$TAG
+  - docker push $SPRINGBOOT

@@ -21,6 +21,10 @@ allprojects {
         mavenLocal()
     }
 
+    springBoot {
+        mainClass = 'md.springboot.webservice.config.core.SpringBoot2Application'
+    }
+
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 }
