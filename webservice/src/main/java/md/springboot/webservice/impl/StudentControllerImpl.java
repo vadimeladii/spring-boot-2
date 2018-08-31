@@ -37,8 +37,15 @@ public class StudentControllerImpl implements StudentController {
 
     @Override
     public Response create(StudentView view) {
-        return Response.ok()
+        return Response.status(Response.Status.CREATED)
                 .entity(business.create(converter.reverse().convert(view)))
+                .build();
+    }
+
+    @Override
+    public Response edit(Long id, StudentView view) {
+        return Response.ok()
+                .entity(business.edit(id, converter.reverse().convert(view)))
                 .build();
     }
 }

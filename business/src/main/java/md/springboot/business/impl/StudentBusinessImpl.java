@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import md.springboot.business.StudentBusiness;
 import md.springboot.business.converter.StudentConverter;
 import md.springboot.business.dto.Student;
+import md.springboot.error.EntityNotFoundException;
 import md.springboot.error.ValueExistsException;
+import md.springboot.error.WrongUrlIdException;
 import md.springboot.repository.StudentRepository;
 import md.springboot.util.FieldName;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,13 @@ public class StudentBusinessImpl implements StudentBusiness {
     @Override
     public Student create(Student dto) {
         verify(dto.getId() != null, () -> new ValueExistsException(Student.class, FieldName.ID));
+        return converter.convert(repository.save(converter.reverse().convert(dto)));
+    }
+
+    @Override
+    public Student edit(Long id, Student dto) {
+        verify(!dto.getId().equals(id), () -> new WrongUrlIdException(Student.class, dto.getId(), id));
+        verify(!repository.existsById(id), () -> new EntityNotFoundException(Student.class, id));
         return converter.convert(repository.save(converter.reverse().convert(dto)));
     }
 }

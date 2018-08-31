@@ -18,4 +18,6 @@ public interface StudentBusiness {
     Optional<Student> retrieveById(@NotNull Long id);
 
     Student create(@Valid Student dto);
+
+    Student edit(@NotNull Long id, @Valid Student dto);
 }
