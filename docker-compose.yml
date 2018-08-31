@@ -6,8 +6,8 @@ services:
         restart: always
         environment:
             POSTGRES_PASSWORD: postgres
-# NODE
-    parking_monolith:
+# SPRING_BOOT APPLICATION
+    spring_boot:
         image: vadimeladii7/springboot2:latest
         ports:
             - "8080:8080"
