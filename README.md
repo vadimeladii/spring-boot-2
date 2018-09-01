@@ -8,7 +8,7 @@ traditional WAR deployments.
 
 # How to Run
 
-This application is packaged as a war which has Tomcat 8.5 embedded. No Tomcat, Jetty or JBoss installation is necessary.
+This application is packaged as a jar which has Tomcat 8.5 embedded. No Tomcat, Jetty or JBoss installation is necessary.
 You run it using the java -jar command.
 
 * Clone this repository
@@ -43,10 +43,10 @@ Run in this directory:
 Then you can see:
 
 <pre>
-Starting springboot2_db_1 ... done
-Starting springboot2_spring_boot_1 ... done
-Attaching to springboot2_db_1, springboot2_spring_boot_1
-...
+    Starting springboot2_db_1 ... done
+    Starting springboot2_spring_boot_1 ... done
+    Attaching to springboot2_db_1, springboot2_spring_boot_1
+    ...
 </pre>
 
 
@@ -78,5 +78,172 @@ Here is the docker-compose.yml that powers the whole setup.
                 - SPRING_FLYWAY_USER=postgres
                 - SPRING_FLYWAY_PASSWORD=postgres
 </pre>
+
+# Docker Workflow
+
+![Screenshot](docker_workflow.png)
+
+The flow is summarized as follows:
+
+* Code on local machine
+* Push commits to Github (branch master)
+* Travis is notified and builds new a new Docker image and runs tests against the newly-built image
+* If all work well, Travis pushes the new image to Docker Hub (with tag latest)
+
+
+This is the .travis.yml file: 
+
+<pre>
+    sudo:
+      required
+    
+    services:
+      - docker
+    
+    language: java
+    
+    jdk:
+      - oraclejdk8
+    
+    install: gradle -p webservice assemble
+    
+    os:
+      - linux
+    
+    env:
+      global:
+        - COMMIT=${TRAVIS_COMMIT::7}
+    
+    branches:
+      only:
+        - master
+    
+    after_success:
+    
+       #LOGIN
+      - docker login -u $D_USER -p $D_PASS
+    
+       #TAG
+      - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+    
+       #DATAWAREHOUSE
+      - export SPRINGBOOT=vadimeladii7/springboot2
+      - docker build -t $SPRINGBOOT:$COMMIT ./webservice
+      - docker tag $SPRINGBOOT:$COMMIT $SPRINGBOOT:$TAG
+      - docker push $SPRINGBOOT
+</pre>
+
+# About the Service
+
+The service is just a simple student-address REST service. It uses a relational database PostgreSQL to store the data.
+If your database connection properties work, you can call some REST endpoints defined in md.springboot.webservice.AddressController,
+md.springboot.webservice.StudentController on port 8080.
+
+Here is what this little application demonstrates:
+
+* Full integration with the latest Spring Framework: inversion of control, dependency injection, etc
+* Packaging as a single jar with embedded container (tomcat 8.5): No need to install a container separately on the host just run using the java -jar command
+* Writing a RESTful service using annotation: supports both XML and JSON request / response; simply use desired Accept header in your request
+* Exception mapping from application exceptions to the right HTTP response with exception details in the body
+* Spring Data Integration with JPA/Hibernate with just a few lines of configuration and familiar annotations
+* Automatic CRUD functionality against the data source using Spring Repository pattern
+* Spring Security for access endpoint with token by role
+* All APIs are "self-documented" by Swagger2 using annotations
+
+Here are some endpoints you can call:
+
+#### Retrieve a paginated list of address
+
+<pre>
+    http://localhost:8080/api/address?page=0&size=10
+    
+    Response: HTTP 200
+    CONTENT: paginated list 
+</pre>
+
+#### Retrieve an address by ID
+
+<pre>
+    http://localhost:8080/api/address/{id}
+    
+    Response: HTTP 200
+    CONTENT: 
+
+    {
+      "id": "integer"
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "zipcode": "string"
+    }
+
+</pre>
+
+#### Create a address resource
+
+<pre>
+    POST /api/address
+    Accept: application/json
+    Content-Type: application/json
+    
+    {
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "zipcode": "string"
+    }
+    
+    RESPONSE: HTTP 201 (Created)
+    CONTENT:  
+       
+    {
+      "id": "integer"
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "zipcode": "string"
+    }
+    
+    Location header: http://localhost:8080/api/address
+</pre>
+
+#### Update a hotel resource
+
+<pre>
+    PUT /api/address/1
+    Accept: application/json
+    Content-Type: application/json
+    
+    {
+      "id": "integer"
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "zipcode": "string"
+    }
+    
+    RESPONSE: HTTP 200 (OK)
+    CONTENT:  
+       
+    {
+      "id": "integer"
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "zipcode": "string"
+    }
+</pre>
+
+Creating also CRUD Endpoints for Student
+
+#### To view Swagger 2 API docs
+
+Run the server and browse to localhost:8080/swagger-ui.html
+
+
+
+
+
+
 
 
