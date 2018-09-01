@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vadimeladii/spring-boot-2.svg?branch=master)](https://travis-ci.org/vadimeladii/spring-boot-2)
+
 # Spring Boot 2 Example Project
 This is a sample Java / Gradle / Spring Boot (version 2.0.4) application. 
 
