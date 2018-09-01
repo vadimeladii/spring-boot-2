@@ -207,7 +207,7 @@ Here are some endpoints you can call:
     Location header: http://localhost:8080/api/address
 </pre>
 
-#### Update a hotel resource
+#### Update a address resource
 
 <pre>
     PUT /api/address/1
