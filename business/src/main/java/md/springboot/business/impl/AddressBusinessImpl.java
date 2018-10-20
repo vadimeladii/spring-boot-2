@@ -9,6 +9,7 @@ import md.springboot.error.EntityNotFoundException;
 import md.springboot.error.ValueExistsException;
 import md.springboot.error.WrongUrlIdException;
 import md.springboot.repository.AddressRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class AddressBusinessImpl implements AddressBusiness {
 
     private final AddressRepository repository;
     private final AddressConverter converter;
+
+    @Value("${name}")
+    private String name;
 
     @Override
     public List<Address> retrieve() {

@@ -17,3 +17,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+name: "default"
